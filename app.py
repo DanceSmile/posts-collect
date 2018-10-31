@@ -9,6 +9,7 @@
 
 from flask import Flask
 from flask import request
+from flask import make_response
 
 # 初始化程序实例
 '''
@@ -56,6 +57,23 @@ def get_user_height(height):
 #     return path
 
 
+
+@app.route('/make_response')
+def make_response_call():
+    status  = 200
+    header = {'name': 'zero'}
+    response = make_response('<p> make response with cookie username = zero</p>', status, header)
+    response.set_cookie('username', 'zero')
+
+    return response
+    
+
+
+@app.route('/bad')
+def bad_request():
+    status =  400
+    header = {'name': 'zero'}
+    return "bad request", status, header
 #请求调度
 '''
 使用app.url_map来查看url与视图函数的映射关系
