@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>flask template index with request</title>
+</head>
+<body>
+
+	hello flask template  power  by jinja2 !!!
+
+	<ul>
+		{% for item in request.headers %}
+		<li>
+			{{ item[0] | upper  }}
+		</li>
+		{% endfor %}
+	</ul>
+
+	
+</body>
+</html>

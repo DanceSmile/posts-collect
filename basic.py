@@ -9,6 +9,7 @@
 
 from flask import Flask
 from flask import request
+from flask_script  import  Manager
 
 # 初始化程序实例
 '''
@@ -58,9 +59,14 @@ def get_user_height(height):
 
 #请求调度
 '''
+pip
 使用app.url_map来查看url与视图函数的映射关系
 '''
+
+# flask extsion shell command
+manager = Manager(app)
+
 print(app.url_map)
 if __name__  == '__main__' :
     # 启动程序
-    app.run(debug=True)
+    manager.run()
