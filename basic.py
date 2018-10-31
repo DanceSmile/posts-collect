@@ -10,6 +10,7 @@
 from flask import Flask
 from flask import request
 from flask import make_response
+from flask_script  import  Manager
 
 # 初始化程序实例
 '''
@@ -76,9 +77,14 @@ def bad_request():
     return "bad request", status, header
 #请求调度
 '''
+pip
 使用app.url_map来查看url与视图函数的映射关系
 '''
+
+# flask extsion shell command
+manager = Manager(app)
+
 print(app.url_map)
 if __name__  == '__main__' :
     # 启动程序
-    app.run(debug=True)
+    manager.run()
