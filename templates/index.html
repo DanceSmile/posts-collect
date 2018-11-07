@@ -1,21 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>flask template index with request</title>
-</head>
-<body>
+<!-- 模版继承 -->
+{% extends 'base.html' %}
 
-	hello flask template  power  by jinja2 !!!
+{% block body %}
 
-	<ul>
-		{% for item in request.headers %}
-		<li>
-			{{ item[0] | upper  }}
-		</li>
-		{% endfor %}
-	</ul>
+<!-- 使用 super() 获取父级原来的内容 -->
+{{super()}}
+<!-- 模版片段 -->
+{% include 'header.html' %}
+hello flask template  power  by jinja2 !!!
+<!-- 循环 -->
+<br/>
+{{ request.headers }}
+<ul>
+	{% for item in request.headers %}
+	<li>
+		<!-- 输出管道处理 -->
+		{{ item[0] | upper  }}
+		{{ item[0] | safe }}  
+		{{ item[0] | title  }}
+	</li>
+	{% endfor %}
+</ul>
+<!-- 控制结构 -->
+{% if( request.headers.get('User-Agent') ) %}
+	{{ request.headers.get('User-Agent') }}
+{% endif %}
 
-	
-</body>
-</html>
+<br />
+<!-- 宏设置 -->
+{% macro render_comment(comment) %}
+	{{  comment.username }}: {{comment.comment}} 
+	<br /> 
+{% endmacro %}
+{% for comment in  comments %}
+	{{ render_comment(comment) }}
+{% endfor %}
+{% endblock %}
