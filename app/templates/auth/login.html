@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>login</title>
-</head>
-<body>
-    login
-</body>
-</html>
+{%  extends('base.html') %}
+{% block page_content %}
+
+ {% import "bootstrap/wtf.html" as wtf %}
+<div class="page-header">
+ {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}
+
