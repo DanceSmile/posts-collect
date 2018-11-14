@@ -12,21 +12,36 @@ from flask_login import  UserMixin
 
 @login_manager.user_loader
 def load_user(user_id):
-    User.query.get(int(user_id))
+    return User.query.get(int(user_id))
 
 class Role(UserMixin, db.Model):
     __tablename__ = "roles"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
+    default = db.Column(db.Boolean, default=False, index=True)
+    permissions = db.Column(db.Integer)
     users = db.relationship("User", backref='role')
-    email = db.Column(db.String(64), unique=True, index=True)
+
+    @staticmethod
+    def insert_roles():
+
+        roles = {
+            'User' : (Permissions.FOLLOW | Permissions.COMMENT | Permissions.WRITE_ARTICLE, True),
+            'Moderator': (Permissions.FOLLOW | Permissions.COMMENT | Permissions.WRITE_ARTICLE | Permissions.MODERATE_COMMENTS, True)
+            "Administrator": (0xff, False)
+        }
+
+        for role in roles:
+            Role.query.filter_by()
+
 
     def __repr__(self):
         return '<Role %r>' % self.name
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(128))
@@ -44,3 +59,10 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.username
+
+class Permissions:
+    FOLLOW=0x01
+    COMMENT=0x02
+    WRITE_ARTICLE=0x04
+    MODERATE_COMMENTS=0x08
+    ADMINISTER=0x80

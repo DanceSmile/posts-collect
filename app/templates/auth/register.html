@@ -10,13 +10,6 @@
             <p class="alert alert-warning">{{ messgae }}</p>
         {% endfor %}
         {{ wtf.quick_form(form) }}
-        <p>
-            <br>
-            New user?
-            <a href="{{ url_for('auth.register') }}">
-                Click here to register
-            </a>
-        </p>
     </div>
 {% endblock %}
 

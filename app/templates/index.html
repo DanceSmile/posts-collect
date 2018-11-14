@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-hello flask
+{% block page_content %}
 
-</body>
-</html>
+    <div class="page-header">
+        <h1>view index</h1>
+    </div>
+
+    <div class="col-md-6 ">
+        {% if current_user.is_authenticated %}
+             {{ current_user.username }} is loginin
+        {% else %}
+            Stranger
+        {% endif %}!
+    </div>
+
+{% endblock %}

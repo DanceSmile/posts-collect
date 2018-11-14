@@ -12,6 +12,7 @@ from . import  main
 
 @main.route('/', methods=['GET', "POST"])
 def index():
+    print(session['user_id'])
     return render_template('index.html')
 
 
