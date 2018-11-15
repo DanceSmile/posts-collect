@@ -28,8 +28,7 @@ def login():
     return  render_template('auth/login.html', form=form,current_user=current_user)
 
 
-@auth.route('/logout')
-@login_required
+@auth.route('/logout', methods=['GET', "POST"])
 def login_out():
     logout_user()
     flash('You have been logged out')
@@ -45,5 +44,11 @@ def register():
         flash('you can login ')
         return  redirect(url_for('main.index'))
     return render_template('auth/register.html',form=form)
+
+
+@auth.before_app_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.ping()
 
 
