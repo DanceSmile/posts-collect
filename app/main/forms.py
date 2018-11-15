@@ -12,3 +12,5 @@ class EditProfileForm(Form):
     location = StringField("location", validators=[Length(0,64)])
     about_me = TextAreaField('about me', validators=[Length(0,64)])
     submit = SubmitField('edit')
+
+class
